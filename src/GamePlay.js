@@ -5,7 +5,7 @@ var config = {
 };
 
 var game = new Phaser.Game(config);
-
+// Escena Carga del juego
 var LoadScene = {
   init: function() {
     game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
@@ -16,12 +16,12 @@ var LoadScene = {
     // Cargar los assets necesarios para la escena de carga, como el background, la imagen y el sonido si es necesario
     game.load.image('background', 'assets/images/no-mosquito.jpg');
     game.load.audio('sound', 'assets/sounds/pum.mp3');
-    game.load.audio('malaria1', 'assets/sounds/malaria1.mp3'); // Carga el audio "reto1" 
-    game.load.audio('malaria2', 'assets/sounds/malaria2.mp3'); // Carga el audio "reto1"
-    game.load.audio('malaria3', 'assets/sounds/malaria3.mp3'); // Carga el audio "reto1"
-    game.load.audio('malaria4', 'assets/sounds/malaria4.mp3'); // Carga el audio "reto1" 
-    game.load.audio('malaria5', 'assets/sounds/malaria5.mp3'); // Carga el audio "reto1"
-    game.load.audio('malaria6', 'assets/sounds/malaria6.mp3'); // Carga el audio "reto1"
+    game.load.audio('malaria1', 'assets/sounds/malaria1.mp3'); 
+    game.load.audio('malaria2', 'assets/sounds/malaria2.mp3');
+    game.load.audio('malaria3', 'assets/sounds/malaria3.mp3');
+    game.load.audio('malaria4', 'assets/sounds/malaria4.mp3');
+    game.load.audio('malaria5', 'assets/sounds/malaria5.mp3');
+    game.load.audio('malaria6', 'assets/sounds/malaria6.mp3');
   },
 create: function() {
     // Mostrar el background
@@ -68,79 +68,76 @@ create: function() {
     playNextAudio();
   }
 };
-
-// GamePlayManager 
+// Escena Principal
 var GamePlayManager = { 
-  preload: function() { 
+    preload: function() { 
     game.load.image('background', 'assets/images/background.jpg'); 
     game.load.spritesheet('choice', 'assets/images/choice.png', 300, 150, 2); 
-    game.load.spritesheet('select', 'assets/images/select.png', 300, 150, 2); // Nueva imagen para el botón 
+    game.load.spritesheet('select', 'assets/images/select.png', 300, 150, 2); 
     game.load.audio('reto1', 'assets/sounds/reto1.mp3'); // Carga el audio "reto1" 
-  }, 
-create: function() {
-    game.add.sprite(0, 0, 'background');
+    }, 
+    create: function() {
+        game.add.sprite(0, 0, 'background');
 
-    const dialogWidth = game.width * 0.4;
-    const dialogHeight = dialogWidth * 0.3;
+        const dialogWidth = game.width * 0.4;
+        const dialogHeight = dialogWidth * 0.3;
 
-    const dialogBox = this.add.graphics();
-    dialogBox.beginFill(0xffffff);
-    dialogBox.drawRoundedRect((game.width - dialogWidth) / 2, 20, dialogWidth, dialogHeight, 20);
-    dialogBox.endFill();
+        const dialogBox = this.add.graphics();
+        dialogBox.beginFill(0xffffff);
+        dialogBox.drawRoundedRect((game.width - dialogWidth) / 2, 20, dialogWidth, dialogHeight, 20);
+        dialogBox.endFill();
 
-    const floatingText = this.add.text((game.width - dialogWidth) / 2 + 20, 40, '', { font: '16px Arial', fill: '#000000' });
-    floatingText.wordWrapWidth = dialogWidth - 40;
-    floatingText.wordWrap = true;
+        const floatingText = this.add.text((game.width - dialogWidth) / 2 + 20, 40, '', { font: '16px Arial', fill: '#000000' });
+        floatingText.wordWrapWidth = dialogWidth - 40;
+        floatingText.wordWrap = true;
 
-    const messages = ['La Malaria: La malaria también conocida como paludismo es una enfermedad causada por un parásito Plasmodium, el cual es transmitido por la picadura de un mosquito infectado del género anófeles.','Sus principales síntomas son:  fiebre, sudoración, escalofríos, dolor de cabeza y dolor muscular. Esta enfermedad puede llegar a ser potencialmente mortal si no es tratada a tiempo, por eso', 'es muy importante acudir lo más pronto posible a los centros de salud cuando presentemos estos síntomas. Existen unas medidas que podemos poner en práctica para evitar enfermarnos por malaria:', 'estas son el uso de mosquiteros impregnados con insecticida para dormir, fumigar las casas con insecticidas, aplicarse repelente de insectos en la piel, evitar la formación de aguas estancadas,', 'si se tiene tanques o cunetas en la casa desinfectarlos utilizando pastillas de cloro. Y recuerden amiguitos en caso de presentar estos síntomas no debemos automedicarnos, debemos acudir de inmediato', 'al punto de diagnóstico más cercano, tomar todo el medicamento formulado sin suspender dosis y completar los días establecidos para el tratamiento.¡Ahora te animas a jugar conmigo resolviendo estos retos? vamos tu puedes!'];
-    let currentIndex = 0;
+        const messages = ['La Malaria: La malaria también conocida como paludismo es una enfermedad causada por un parásito Plasmodium, el cual es transmitido por la picadura de un mosquito infectado del género anófeles.','Sus principales síntomas son:  fiebre, sudoración, escalofríos, dolor de cabeza y dolor muscular. Esta enfermedad puede llegar a ser potencialmente mortal si no es tratada a tiempo, por eso', 'es muy importante acudir lo más pronto posible a los centros de salud cuando presentemos estos síntomas. Existen unas medidas que podemos poner en práctica para evitar enfermarnos por malaria:', 'estas son el uso de mosquiteros impregnados con insecticida para dormir, fumigar las casas con insecticidas, aplicarse repelente de insectos en la piel, evitar la formación de aguas estancadas,', 'si se tiene tanques o cunetas en la casa desinfectarlos utilizando pastillas de cloro. Y recuerden amiguitos en caso de presentar estos síntomas no debemos automedicarnos, debemos acudir de inmediato', 'al punto de diagnóstico más cercano, tomar todo el medicamento formulado sin suspender dosis y completar los días establecidos para el tratamiento.¡Ahora te animas a jugar conmigo resolviendo estos retos? vamos tu puedes!'];
+        let currentIndex = 0;
 
-    const showNextMessage = function() {
-        floatingText.setText(messages[currentIndex]);
-        currentIndex++;
-        if (currentIndex < messages.length) {
-            game.time.events.add(Phaser.Timer.SECOND * 12, showNextMessage, this);
-        } else {
-            createNextButtons();
-        }
-    };
+        const showNextMessage = function() {
+            floatingText.setText(messages[currentIndex]);
+            currentIndex++;
+            if (currentIndex < messages.length) {
+                game.time.events.add(Phaser.Timer.SECOND * 12, showNextMessage, this);
+            } else {
+                createNextButtons();
+            }
+        };
 
-    showNextMessage();
+        showNextMessage();
 
-function createNextButtons() {
-    const button1 = game.add.sprite(game.width / 3, dialogHeight + 120, 'choice');
-    button1.anchor.setTo(0.5);
-    button1.inputEnabled = true;
-    button1.events.onInputDown.add(function() {
-        game.state.start('scene3a');
-         const audioReto1 = game.sound.add('reto1'); // Crea una instancia del audio "reto1" 
-    audioReto1.play(); // Reproduce el audio "reto1"
-    }, this);
-    const text1 = game.add.text(game.width / 3, dialogHeight + 220, 'Escena 1', { font: '22px Arial', fill: '#000000' });
-    text1.anchor.setTo(0.5);
-    
-    const button2 = game.add.sprite((game.width / 3) * 2, dialogHeight + 120, 'select');
-    button2.anchor.setTo(0.5);
-    button2.inputEnabled = true;
-    button2.events.onInputDown.add(function() {
-        // Aquí se muestra el mensaje flotante
-        const message = game.add.text(game.width / 2, game.height / 2, 'Primero Escena 1', { font: '25px Arial', fill: '#013220' });
-        message.anchor.setTo(.5);
-        // Puedes agregar animaciones o efectos adicionales al mensaje flotante si lo deseas
-        
-        // Para ocultar el mensaje después de un tiempo determinado, puedes usar un temporizador
-        game.time.events.add(Phaser.Timer.SECOND * 2, function() {
-            message.destroy(); // Elimina el mensaje flotante después de 3 segundos
+    function createNextButtons() {
+        const button1 = game.add.sprite(game.width / 3, dialogHeight + 120, 'choice');
+        button1.anchor.setTo(0.5);
+        button1.inputEnabled = true;
+        button1.events.onInputDown.add(function() {
+            game.state.start('scene3a');
+             const audioReto1 = game.sound.add('reto1'); // Crea una instancia del audio "reto1" 
+        audioReto1.play(); // Reproduce el audio "reto1"
         }, this);
-    }, this);
-    const text2 = game.add.text((game.width / 3) * 2, dialogHeight + 220, 'Escena 2', { font: '22px Arial', fill: '#000000' });
-    text2.anchor.setTo(0.5);
-}
+        const text1 = game.add.text(game.width / 3, dialogHeight + 220, 'Escena 1', { font: '22px Arial', fill: '#000000' });
+        text1.anchor.setTo(0.5);
 
-},
-update: function() {} 
+        const button2 = game.add.sprite((game.width / 3) * 2, dialogHeight + 120, 'select');
+        button2.anchor.setTo(0.5);
+        button2.inputEnabled = true;
+        button2.events.onInputDown.add(function() {
+            // Aquí se muestra el mensaje flotante
+            const message = game.add.text(game.width / 2, game.height / 2, 'Primero Escena 1', { font: '25px Arial', fill: '#013220' });
+            message.anchor.setTo(.5);
+            // Para ocultar el mensaje después de un tiempo determinado, puedes usar un temporizador
+            game.time.events.add(Phaser.Timer.SECOND * 2, function() {
+                message.destroy(); // Elimina el mensaje flotante después de 3 segundos
+            }, this);
+        }, this);
+        const text2 = game.add.text((game.width / 3) * 2, dialogHeight + 220, 'Escena 2', { font: '22px Arial', fill: '#000000' });
+        text2.anchor.setTo(0.5);
+    }
+
+    },
+    update: function() {} 
 }; 
-// Escena 3 
+// Escena Reto1
 var Scene3a = {
   preload: function() {
     game.load.image('background', 'assets/images/back-mosquito.jpg');
@@ -153,7 +150,7 @@ var Scene3a = {
     game.load.audio('audio1', 'assets/sounds/result-rp-agua.mp3');
     game.load.audio('audio2', 'assets/sounds/pruebalo.mp3');
     game.load.audio('audio3', 'assets/sounds/tu-puedes.mp3');
-      game.load.audio('reto2', 'assets/sounds/reto2.mp3'); // Carga el audio "reto1" 
+    game.load.audio('reto2', 'assets/sounds/reto2.mp3'); // Carga el audio "reto1" 
   },
   create: function() {
     game.add.sprite(0, 0, 'background');
@@ -230,14 +227,9 @@ var Scene3a = {
       const audio3 = game.sound.add('audio3');
       audio3.play();
     }
-    max.events.onInputDown.add(function() {
-      if (game && game.scene && game.scene.start) {
-        game.scene.start('nombreDeLaNuevaEscena');
-      }
-    });
   }
 };
-// Escena 11
+// Escena Reto2
 var Scene3b = {
   preload: function() {
     game.load.image('background', 'assets/images/escena4-bg.jpg');
@@ -250,7 +242,7 @@ var Scene3b = {
     game.load.audio('audio1a', 'assets/sounds/result-rp-dormir.mp3');
     game.load.audio('audio2', 'assets/sounds/pruebalo.mp3');
     game.load.audio('audio3', 'assets/sounds/tu-puedes.mp3');
-      game.load.audio('reto3', 'assets/sounds/reto3.mp3'); // Carga el audio "reto1" 
+    game.load.audio('reto3', 'assets/sounds/reto3.mp3'); 
   },
   create: function() {
     game.add.sprite(0, 0, 'background');
@@ -261,12 +253,10 @@ var Scene3b = {
     const mosquito = game.add.sprite(350, 200, 'mosquito');
     const mosquito2 = game.add.sprite(450, 180, 'mosquito');
     const mosquito3 = game.add.sprite(550, 225, 'mosquito');
-      
     alexa.x = 250;
     alexa.y = 355;
     
-
-const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#013220' });
+    const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#013220' });
     title.anchor.setTo(0.5);
     toldillo.inputEnabled = true;
     pesticide.inputEnabled = true;
@@ -274,7 +264,7 @@ const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px 
     toldillo.events.onInputDown.add(function() {
       eliminarMensaje();
       reproducirAudio1a('assets/sounds/result-rp-dormir.mp3');
-       game.time.events.add(Phaser.Timer.SECOND * 10, function() {
+       game.time.events.add(Phaser.Timer.SECOND * 12, function() {
         game.state.start('scene3c'); // Abrir la escena 2 después de 5 segundos
            const audioReto3 = game.sound.add('reto3'); // Crea una instancia del audio "reto1" 
     audioReto3.play(); // Reproduce el audio "reto1"
@@ -313,13 +303,8 @@ const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px 
     }
   }
 }; 
-
+// Escena Reto3
 var Scene3c = {
-  init: function() {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.pageAlignHorizontally = true;
-    game.scale.pageAlignVertically = true;
-  },
   preload: function() {
     game.load.image('background', 'assets/images/escena5-bg.jpg');
     game.load.spritesheet('alejo', 'assets/images/boy.png', 300, 150, 2);
@@ -331,8 +316,7 @@ var Scene3c = {
     game.load.audio('audio1c', 'assets/sounds/result-rp-salud.mp3');
     game.load.audio('audio2', 'assets/sounds/pruebalo.mp3');
     game.load.audio('audio3', 'assets/sounds/tu-puedes.mp3');
-    game.load.audio('reto4', 'assets/sounds/reto4.mp3'); // Carga el audio "reto1" 
-
+    game.load.audio('reto4', 'assets/sounds/reto4.mp3');
   },
   create: function() {
     game.add.sprite(0, 0, 'background');
@@ -340,10 +324,7 @@ var Scene3c = {
     const hospital = game.add.sprite(500, 100, 'hospital');
     const pesticide = game.add.sprite(300, 100, 'pesticide');
     const pastilla = game.add.sprite(100, 100, 'pastilla');
-
-    
-
-const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#ffffff' });
+      const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#ffffff' });
     title.anchor.setTo(0.5);
     hospital.inputEnabled = true;
     pesticide.inputEnabled = true;
@@ -351,7 +332,7 @@ const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px 
     hospital.events.onInputDown.add(function() {
       eliminarMensaje();
       reproducirAudio1('assets/sounds/muy-bien.mp3');
-       game.time.events.add(Phaser.Timer.SECOND * 10, function() {
+       game.time.events.add(Phaser.Timer.SECOND * 12, function() {
         game.state.start('scene3d'); // Abrir la escena 2 después de 5 segundos
            const audioReto4 = game.sound.add('reto4'); // Crea una instancia del audio "reto1" 
     audioReto4.play(); // Reproduce el audio "reto1"
@@ -395,7 +376,7 @@ const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px 
     });
   }
 }; 
-
+// Escena Reto4
 var Scene3d = {
   preload: function() {
     game.load.image('background', 'assets/images/escena6-bg.jpg');
@@ -424,12 +405,9 @@ var Scene3d = {
     const mosquito7 = game.add.sprite(650, 200, 'mosquito');
     const mosquito8 = game.add.sprite(550, 400, 'mosquito');
     const mosquito9 = game.add.sprite(750, 305, 'mosquito');
-      
     max.x = 400;
     max.y = 455;
-    
-
-const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#000000' });
+      const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#000000' });
     title.anchor.setTo(0.5);
     pastilla.inputEnabled = true;
     pesticide.inputEnabled = true;
@@ -472,97 +450,20 @@ const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px 
       const audio3 = game.sound.add('audio3');
       audio3.play();
     }
-    max.events.onInputDown.add(function() {
-      if (game && game.scene && game.scene.start) {
-        game.scene.start('nombreDeLaNuevaEscena');
-      }
-    });
   }
 }; 
-
-//var Scene2 = {
-//  preload: function() {
-//    this.load.image('background', 'assets/images/background.jpg');
-//    this.load.image('carta1', 'assets/images/pastilla.png');
-//    this.load.image('carta2', 'assets/images/pesticide.png');
-//      this.load.image('carta3', 'assets/images/toldillo.jpg');
-//    this.load.image('carta4', 'assets/images/select.png');
-//      this.load.image('carta5', 'assets/images/pastilla.png');
-//    this.load.image('carta6', 'assets/images/pesticide.png');
-//      this.load.image('carta7', 'assets/images/toldillo.jpg');
-//    this.load.image('carta8', 'assets/images/select.png');
-//    // Carga las imágenes adicionales para las cartas
-//    // Puedes agregar más líneas aquí para cargar más imágenes
-//  },
-//  create: function() {
-//    this.add.image(0, 0, 'background');
-//
-//    // Coordenadas para la caja
-//    var boxX = this.game.world.centerX;
-//    var boxY = this.game.world.centerY;
-//
-//    // Crea la caja
-//    var boxWidth = 1000;
-//    var boxHeight = 600;
-//    var box = this.add.graphics(boxX, boxY);
-//    box.lineStyle(4, 0xff0000);
-//    box.beginFill(0xffffff, 0.5);
-//    box.drawRect(-boxWidth/2, -boxHeight/2, boxWidth, boxHeight);
-//    box.anchor.setTo(0.5);
-//
-//    // Coordenadas para las cartas dentro de la caja
-//    var cartaX = boxX - boxWidth/2 + 125;
-//    var cartaY = boxY - boxHeight/2 + 150;
-//
-//    // Arreglo para almacenar las claves de las imágenes de las cartas
-//    var cartaKeys = ['carta1', 'carta2', 'carta3', 'carta4','carta5', 'carta6', 'carta7', 'carta8'];
-//
-//    // Ordena aleatoriamente las claves de las cartas
-//    cartaKeys = this.shuffleArray(cartaKeys);
-//
-//    // Crea las cartas dentro de la caja
-//    for (var i = 0; i < 8; i++) {
-//      var cartaKey = cartaKeys[i];
-//      var carta = this.add.sprite(cartaX, cartaY, cartaKey);
-//      carta.anchor.setTo(0.5);
-//      cartaX += 250;
-//
-//      if (i === 3) {
-//        cartaX = boxX - boxWidth/2 + 125;
-//        cartaY += 300;
-//      }
-//    }
-//  },
-//  shuffleArray: function(array) {
-//    var currentIndex = array.length, temporaryValue, randomIndex;
-//
-//    // Mientras queden elementos para mezclar
-//    while (currentIndex !== 0) {
-//
-//      // Selecciona un elemento restante
-//      randomIndex = Math.floor(Math.random() * currentIndex);
-//      currentIndex -= 1;
-//
-//      // Intercambia con el elemento actual
-//      temporaryValue = array[currentIndex];
-//      array[currentIndex] = array[randomIndex];
-//      array[randomIndex] = temporaryValue;
-//    }
-//
-//    return array;
-//  }
-//};
+// Escena Reto Escena 2
 var Scene2 = {
   preload: function() {
     this.load.image('background', 'assets/images/background.jpg');
-    this.load.image('carta1', 'assets/images/pastilla.png');
+    this.load.image('carta1', 'assets/images/pastilla2.png');
     this.load.image('carta2', 'assets/images/sick.png');
     this.load.image('carta3', 'assets/images/balde.png');
     this.load.image('carta4', 'assets/images/sleep.png');
-    this.load.image('carta5', 'assets/images/hospital.png');
+    this.load.image('carta5', 'assets/images/hospital2.png');
     this.load.image('carta6', 'assets/images/zancu.png');
-    this.load.image('carta7', 'assets/images/toldillo.jpg');
-    this.load.image('carta8', 'assets/images/pesticide.png');
+    this.load.image('carta7', 'assets/images/toldillo2.png');
+    this.load.image('carta8', 'assets/images/pesticide2.png');
     this.load.audio('perder', 'assets/sounds/perder.mp3');
     this.load.audio('brillante', 'assets/sounds/brillante.mp3');
       this.load.audio('final', 'assets/sounds/final.mp3');
@@ -611,18 +512,22 @@ var Scene2 = {
     if (clickedCards.length === 2) {
       switch(clickedCards.join('-')) {
         case 'carta1-carta3':
+        case 'carta3-carta1':
           this.markCardsAsMatched(clickedCards);
           this.playSound('brillante');
           break;
         case 'carta5-carta2':
+        case 'carta2-carta5':
           this.markCardsAsMatched(clickedCards);
           this.playSound('brillante');
           break;
         case 'carta7-carta4':
+        case 'carta4-carta7':
           this.markCardsAsMatched(clickedCards);
           this.playSound('brillante');
           break;
         case 'carta8-carta6':
+        case 'carta6-carta8':
           this.markCardsAsMatched(clickedCards);
           this.playSound('brillante');
           break;
@@ -760,12 +665,8 @@ this.playAudios(['malaria1', 'malaria2', 'malaria3','malaria4', 'malaria5', 'mal
     sound.play();
   }
 };
+// Escena Final1
 var LastEscene = {
-  init: function() {
-    game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL;
-    game.scale.pageAlignHorizontally = true;
-    game.scale.pageAlignVertically = true;
-  },
   preload: function() { 
     game.load.image('background', 'assets/images/last-escena.jpg'); 
     game.load.spritesheet('choice', 'assets/images/house.png', 300, 150, 2); 
@@ -787,7 +688,7 @@ var LastEscene = {
     }, this, 1, 0, 2);
     button1.anchor.setTo(0.5);
     // Crea el texto para el primer botón
-    var text1 = game.add.text(game.world.centerX - 250, game.world.centerY + 80, 'Menu Principal', { font: 'bold 24px "Lucida Console"', fill: '#000000' });
+    var text1 = game.add.text(game.world.centerX - 250, game.world.centerY + 80, 'Menu Principal', { font: '24px Arial', fill: '#000000' });
     text1.anchor.setTo(0.5);
     // Crea el segundo botón
     var button2 = game.add.button(game.world.centerX + 250, game.world.centerY, 'select', function() {
@@ -796,7 +697,7 @@ var LastEscene = {
     }, this, 1, 0, 2);
     button2.anchor.setTo(0.5);
     // Crea el texto para el segundo botón
-    var text2 = game.add.text(game.world.centerX + 250, game.world.centerY + 80, 'Siguiente Escena', { font: 'bold 24px "Lucida Console"', fill: '#000000' });
+    var text2 = game.add.text(game.world.centerX + 250, game.world.centerY + 80, 'Siguiente Escena', { font: '24px Arial', fill: '#000000' });
     text2.anchor.setTo(0.5);
   },
   playAudios: function(audioNames) {
@@ -817,18 +718,6 @@ var LastEscene = {
   },
   update: function() {} 
 };
-
-// Función para crear los botones que llevan a las diferentes escenas 
-function createButtons() { 
-  const button1 = game.add.sprite(game.width / 3, game.height / 2, 'select'); 
-  button1.anchor.setTo(0.5); 
-  button1.inputEnabled = true; 
-  button1.events.onInputDown.add(function() { 
-    game.state.start('scene1'); // Abrir la escena 11 al presionar el botón 1 
-  }, this); 
-  const text1 = game.add.text(game.width / 3, game.height / 2 + 50, 'Botón 1', { font: '22px Arial', fill: '#000000' }); 
-  text1.anchor.setTo(0.5); 
-} 
 // Agregar las escenas al juego 
 game.state.add('gameplay', GamePlayManager); 
 game.state.add('scene3a', Scene3a);
@@ -837,11 +726,6 @@ game.state.add('scene3c', Scene3c);
 game.state.add('scene3d', Scene3d);
 game.state.add('lastscene', LastEscene);
 game.state.add('scene2', Scene2); 
-// Iniciar el juego con la escena principal 
-//game.state.start('gameplay'); 
-
-// Agregar la escena de carga al juego
 game.state.add('LoadScene', LoadScene);
-
 // Iniciar el juego con la escena de carga
-game.state.start('scene3a');
+game.state.start('LoadScene');

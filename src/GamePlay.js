@@ -23,14 +23,25 @@ var LoadScene = {
     game.load.audio('malaria5', 'assets/sounds/malaria5.mp3');
     game.load.audio('malaria6', 'assets/sounds/malaria6.mp3');
   },
-create: function() {
+  create: function() {
     // Mostrar el background
     game.add.sprite(0, 0, 'background');
+    
+    // Crear el texto del título
+    var titleText = game.add.text(game.world.centerX, 100, 'MALARIAKIDS', { font: '60px Arial', fill: '#ffffff' });
+    titleText.anchor.setTo(0.5);
+    
+    // Crear el texto del mensaje
+    var messageText = game.add.text(game.world.centerX, game.world.height - 150, 'Aprende malaria jugando', { font: '40px Arial', fill: '#ffffff' });
+    messageText.anchor.setTo(0.75);
+    messageText.fontSize = 20;
+    
     // Crear el botón
     var button = game.add.button(game.world.centerX, game.world.centerY, '', this.buttonOnClick, this, 1, 0, 2);
     button.anchor.setTo(0, 0.5);
     button.x = game.width / 4;
     button.y = game.world.centerY;
+    
     // Agregar el texto al botón
     var buttonText = game.add.text(0, 0, 'Comenzar', { font: '60px Arial', fill: '#ffffff' });
     buttonText.anchor.setTo(0.5);
@@ -40,19 +51,23 @@ create: function() {
     // Reproducir el audio
     const audio = game.sound.add('sound');
     audio.play();
+    
     // Ocultar el botón
-    var button = game.world.children[1];
+    var button = game.world.children[3];
     button.visible = false;
+    
     // Mostrar el texto "Cargando"
     var loadingText = game.add.text(game.width / 4, game.world.centerY, 'Cargando...', { font: '50px Arial', fill: '#ffffff' });
     loadingText.anchor.setTo(0, 0.5);
+    
     // Animar el texto
     var loadingTween = game.add.tween(loadingText).to({ alpha: 0 }, 1000, Phaser.Easing.Linear.None, true, 0, -1);
     loadingTween.yoyo(true);
+    
     // Esperar un tiempo y luego iniciar la siguiente escena
     game.time.events.add(Phaser.Timer.SECOND * 5, function() {
-      game.state.start('gameplay'); // Reemplaza 'MainScene' con el nombre de tu escena principal
-      this.playAudios(['malaria1', 'malaria2', 'malaria3','malaria4', 'malaria5', 'malaria6']);
+      game.state.start('gameplay');
+      this.playAudios(['malaria1', 'malaria2', 'malaria3', 'malaria4', 'malaria5', 'malaria6']);
     }, this);
   },
   playAudios: function(audioNames) {
@@ -320,7 +335,7 @@ var Scene3c = {
   },
   create: function() {
     game.add.sprite(0, 0, 'background');
-    const alejo = game.add.sprite(550, 400, 'alejo');
+    const alejo = game.add.sprite(900, 350, 'alejo');
     const hospital = game.add.sprite(500, 100, 'hospital');
     const pesticide = game.add.sprite(300, 100, 'pesticide');
     const pastilla = game.add.sprite(100, 100, 'pastilla');

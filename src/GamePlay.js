@@ -28,12 +28,12 @@ var LoadScene = {
     game.add.sprite(0, 0, 'background');
     
     // Crear el texto del título
-    var titleText = game.add.text(game.world.centerX, 100, 'MALARIAKIDS', { font: '60px Arial', fill: '#ffffff' });
-    titleText.anchor.setTo(0.5);
+    var titleText = game.add.text(game.world.centerX, 100, 'MALARIAKIDS', { font: '60px Arial', fill: '#000000' });
+    titleText.anchor.setTo(1.1);
     
     // Crear el texto del mensaje
-    var messageText = game.add.text(game.world.centerX, game.world.height - 150, 'Aprende malaria jugando', { font: '40px Arial', fill: '#ffffff' });
-    messageText.anchor.setTo(0.75);
+    var messageText = game.add.text(game.world.centerX, 150, 'Aprende malaria jugando', { font: '40px Arial', fill: '#000000' });
+    messageText.anchor.setTo(1.6);
     messageText.fontSize = 20;
     
     // Crear el botón
@@ -43,7 +43,7 @@ var LoadScene = {
     button.y = game.world.centerY;
     
     // Agregar el texto al botón
-    var buttonText = game.add.text(0, 0, 'Comenzar', { font: '60px Arial', fill: '#ffffff' });
+    var buttonText = game.add.text(0, 0, 'Comenzar', { font: '60px Arial', fill: '#000000' });
     buttonText.anchor.setTo(0.5);
     button.addChild(buttonText);
   },
@@ -57,7 +57,7 @@ var LoadScene = {
     button.visible = false;
     
     // Mostrar el texto "Cargando"
-    var loadingText = game.add.text(game.width / 4, game.world.centerY, 'Cargando...', { font: '50px Arial', fill: '#ffffff' });
+    var loadingText = game.add.text(game.width / 4, game.world.centerY, 'Cargando...', { font: '50px Arial', fill: '#000000' });
     loadingText.anchor.setTo(0, 0.5);
     
     // Animar el texto

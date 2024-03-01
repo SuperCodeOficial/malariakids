@@ -395,7 +395,7 @@ var Scene3c = {
 var Scene3d = {
   preload: function() {
     game.load.image('background', 'assets/images/escena6-bg.jpg');
-    game.load.spritesheet('max', 'assets/images/max.png', 300, 150, 2);
+    game.load.spritesheet('jonas', 'assets/images/ind.png', 300, 150, 2);
       game.load.spritesheet('pastilla', 'assets/images/pastilla.png', 300, 150, 2);
     game.load.spritesheet('pesticide', 'assets/images/pesticide.png', 300, 150, 2);
     game.load.spritesheet('traje', 'assets/images/safety-suit.png', 300, 150, 2);
@@ -407,21 +407,21 @@ var Scene3d = {
   },
   create: function() {
     game.add.sprite(0, 0, 'background');
-    const max = game.add.sprite(200, 300, 'max');
+    const jonas = game.add.sprite(200, 300, 'jonas');
     const pastilla = game.add.sprite(700, 100, 'pastilla');
     const pesticide = game.add.sprite(400, 100, 'pesticide');
     const traje = game.add.sprite(150, 100, 'traje');
-    const mosquito = game.add.sprite(650, 400, 'mosquito');
+    const mosquito = game.add.sprite(50, 200, 'mosquito');
     const mosquito2 = game.add.sprite(750, 400, 'mosquito');
     const mosquito3 = game.add.sprite(850, 405, 'mosquito');
-    const mosquito4 = game.add.sprite(650, 500, 'mosquito');
-    const mosquito5 = game.add.sprite(750, 500, 'mosquito');
+    const mosquito4 = game.add.sprite(650, 250, 'mosquito');
+    const mosquito5 = game.add.sprite(750, 340, 'mosquito');
     const mosquito6 = game.add.sprite(850, 505, 'mosquito');
-    const mosquito7 = game.add.sprite(650, 200, 'mosquito');
-    const mosquito8 = game.add.sprite(550, 400, 'mosquito');
-    const mosquito9 = game.add.sprite(750, 305, 'mosquito');
-    max.x = 400;
-    max.y = 455;
+    const mosquito7 = game.add.sprite(650, 320, 'mosquito');
+    const mosquito8 = game.add.sprite(550, 200, 'mosquito');
+    const mosquito9 = game.add.sprite(250, 205, 'mosquito');
+    jonas.x = 500;
+    jonas.y = 430;
       const title = game.add.text(500, 50, 'Elige la opción correcta', { font: '32px Arial', fill: '#000000' });
     title.anchor.setTo(0.5);
     pastilla.inputEnabled = true;
